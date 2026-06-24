@@ -26,14 +26,14 @@ export class ExaFindSimilarModal extends Modal {
 				.onChange((value) => {
 					this.url = value;
 				});
-			text.inputEl.style.width = '100%';
+			text.inputEl.addClass('exa-search-input');
 			text.inputEl.addEventListener('keydown', (e: KeyboardEvent) => {
 				if (e.key === 'Enter') {
 					e.preventDefault();
-					this.runFindSimilar();
+					void this.runFindSimilar();
 				}
 			});
-			setTimeout(() => text.inputEl.focus(), 50);
+			window.setTimeout(() => text.inputEl.focus(), 50);
 		});
 
 		new Setting(contentEl).addButton((btn) =>
@@ -82,7 +82,7 @@ export class ExaFindSimilarModal extends Modal {
 			const cursor = editor.getCursor();
 			editor.replaceRange(text, cursor);
 		} else {
-			navigator.clipboard.writeText(text);
+			void navigator.clipboard.writeText(text);
 			new Notice('No active editor. Results copied to clipboard.');
 		}
 	}

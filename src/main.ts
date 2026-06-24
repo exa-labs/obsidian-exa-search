@@ -1,6 +1,7 @@
 import { Editor, Plugin } from 'obsidian';
 import { ExaSearchSettings, DEFAULT_SETTINGS, ExaSearchSettingTab } from './settings';
 import { ExaSearchModal } from './search-modal';
+import { ExaFindSimilarModal } from './find-similar-modal';
 
 export default class ExaSearchPlugin extends Plugin {
 	settings!: ExaSearchSettings;
@@ -30,6 +31,28 @@ export default class ExaSearchPlugin extends Plugin {
 					return;
 				}
 				new ExaSearchModal(this.app, this, selection).open();
+			},
+		});
+
+		this.addCommand({
+			id: 'find-similar',
+			name: 'Find similar pages',
+			callback: () => {
+				new ExaFindSimilarModal(this.app, this).open();
+			},
+		});
+
+		this.addCommand({
+			id: 'find-similar-url',
+			name: 'Find pages similar to selected URL',
+			editorCallback: (editor: Editor) => {
+				const selection = editor.getSelection().trim();
+				const urlMatch = selection.match(/https?:\/\/[^\s)]+/);
+				if (urlMatch) {
+					new ExaFindSimilarModal(this.app, this, urlMatch[0]).open();
+				} else {
+					new ExaFindSimilarModal(this.app, this).open();
+				}
 			},
 		});
 

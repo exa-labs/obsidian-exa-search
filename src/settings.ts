@@ -1,12 +1,27 @@
 import { App, PluginSettingTab, Setting } from 'obsidian';
 import type ExaSearchPlugin from './main';
 
+export type ExaCategory =
+	| ''
+	| 'company'
+	| 'research paper'
+	| 'news'
+	| 'pdf'
+	| 'github'
+	| 'tweet'
+	| 'personal site'
+	| 'linkedin profile';
+
+export type ResultFormat = 'list' | 'callout';
+
 export interface ExaSearchSettings {
 	apiKey: string;
 	numResults: number;
 	includeHighlights: boolean;
 	includeText: boolean;
 	searchType: 'auto' | 'keyword';
+	category: ExaCategory;
+	resultFormat: ResultFormat;
 }
 
 export const DEFAULT_SETTINGS: ExaSearchSettings = {
@@ -15,6 +30,8 @@ export const DEFAULT_SETTINGS: ExaSearchSettings = {
 	includeHighlights: true,
 	includeText: false,
 	searchType: 'auto',
+	category: '',
+	resultFormat: 'list',
 };
 
 export class ExaSearchSettingTab extends PluginSettingTab {
@@ -100,6 +117,41 @@ export class ExaSearchSettingTab extends PluginSettingTab {
 					.setValue(this.plugin.settings.searchType)
 					.onChange(async (value) => {
 						this.plugin.settings.searchType = value as 'auto' | 'keyword';
+						await this.plugin.saveSettings();
+					}),
+			);
+
+		new Setting(containerEl)
+			.setName('Default category')
+			.setDesc('Filter results to a specific content category. Leave empty for all.')
+			.addDropdown((dropdown) =>
+				dropdown
+					.addOption('', 'All (no filter)')
+					.addOption('company', 'Company')
+					.addOption('research paper', 'Research paper')
+					.addOption('news', 'News')
+					.addOption('pdf', 'PDF')
+					.addOption('github', 'GitHub')
+					.addOption('tweet', 'Tweet')
+					.addOption('personal site', 'Personal site')
+					.addOption('linkedin profile', 'LinkedIn profile')
+					.setValue(this.plugin.settings.category)
+					.onChange(async (value) => {
+						this.plugin.settings.category = value as ExaCategory;
+						await this.plugin.saveSettings();
+					}),
+			);
+
+		new Setting(containerEl)
+			.setName('Result format')
+			.setDesc('How results are formatted when inserted into notes.')
+			.addDropdown((dropdown) =>
+				dropdown
+					.addOption('list', 'Markdown list')
+					.addOption('callout', 'Callout blocks')
+					.setValue(this.plugin.settings.resultFormat)
+					.onChange(async (value) => {
+						this.plugin.settings.resultFormat = value as ResultFormat;
 						await this.plugin.saveSettings();
 					}),
 			);

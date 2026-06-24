@@ -76,7 +76,6 @@ export class ExaSearchSettingTab extends PluginSettingTab {
 				slider
 					.setLimits(1, 20, 1)
 					.setValue(this.plugin.settings.numResults)
-					.setDynamicTooltip()
 					.onChange(async (value) => {
 						this.plugin.settings.numResults = value;
 						await this.plugin.saveSettings();

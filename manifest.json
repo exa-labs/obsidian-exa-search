@@ -1,7 +1,7 @@
 {
 	"id": "exa-search",
 	"name": "Exa Search",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"minAppVersion": "1.12.7",
 	"description": "Search the web with Exa AI-native search and insert results directly into your notes.",
 	"author": "Exa Labs",

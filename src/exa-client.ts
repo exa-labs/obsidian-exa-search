@@ -45,17 +45,17 @@ export async function exaSearch(
 		type: settings.searchType,
 	};
 
-	const category = overrides?.category ?? settings.category;
+	const category = overrides?.category !== undefined ? overrides.category : settings.category;
 	if (category) {
 		body.category = category;
 	}
 
-	const startDate = overrides?.startDate ?? (settings.useStartDate ? settings.startDate : '');
+	const startDate = overrides?.startDate ?? '';
 	if (startDate) {
 		body.startPublishedDate = startDate;
 	}
 
-	const endDate = overrides?.endDate ?? (settings.useEndDate ? settings.endDate : '');
+	const endDate = overrides?.endDate ?? '';
 	if (endDate) {
 		body.endPublishedDate = endDate;
 	}

@@ -111,9 +111,7 @@ export class ExaSearchModal extends Modal {
 		}
 
 		const overrides: SearchOverrides = {};
-		if (this.categoryOverride) {
-			overrides.category = this.categoryOverride;
-		}
+		overrides.category = this.categoryOverride;
 		if (this.startDate.trim()) {
 			overrides.startDate = this.startDate.trim();
 		}

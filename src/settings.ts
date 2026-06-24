@@ -22,10 +22,6 @@ export interface ExaSearchSettings {
 	searchType: 'auto' | 'keyword';
 	category: ExaCategory;
 	resultFormat: ResultFormat;
-	useStartDate: boolean;
-	startDate: string;
-	useEndDate: boolean;
-	endDate: string;
 }
 
 export const DEFAULT_SETTINGS: ExaSearchSettings = {
@@ -36,10 +32,6 @@ export const DEFAULT_SETTINGS: ExaSearchSettings = {
 	searchType: 'auto',
 	category: '',
 	resultFormat: 'list',
-	useStartDate: false,
-	startDate: '',
-	useEndDate: false,
-	endDate: '',
 };
 
 export class ExaSearchSettingTab extends PluginSettingTab {

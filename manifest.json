@@ -1,0 +1,10 @@
+{
+	"id": "exa-search",
+	"name": "Exa Search",
+	"version": "1.0.0",
+	"minAppVersion": "1.0.0",
+	"description": "Search the web with Exa and insert results into your notes. Supports web search, content fetching, and research directly from Obsidian.",
+	"author": "Exa Labs",
+	"authorUrl": "https://exa.ai",
+	"isDesktopOnly": false
+}
